@@ -31,7 +31,16 @@
             return{x,y};
 		}
 
-		function Color(c){
+		canvas.addEventListener("mousemove", function(event){
+			var mousePos = getMousePos(canvas, event)
+			console.log(mousePos.x + ',' + mousePos.y);
+			ctx.beginPath();
+			ctx.arc(mousePos.x, mousePos.y, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = "red";
+			ctx.fill();
+		});
+
+		canvas.addEventListener("keydown", function(c){
 			if (c.keycode == 66){
 				ctx.fillStyle = "blue";
 			}
@@ -44,21 +53,6 @@
 			if (c.keycode == 89){
 				ctx.fillStyle = "yellow";
 			}
-			return(ctx.fillStyle);
-		}
-
-		canvas.addEventListener("mousemove", function(event){
-			var mousePos = getMousePos(canvas, event)
-			console.log(mousePos.x + ',' + mousePos.y);
-			ctx.beginPath();
-			ctx.arc(mousePos.x, mousePos.y, 10, 0, 2 * Math.PI);
-			ctx.fillStyle = "red";
-			ctx.fill();
-		});
-
-		canvas.addEventListener("keypress", function(event){
-			newCol = Color(c);
-			ctx.fillStyle == newCol;
 			ctx.fill();
 		})
 	</script>
