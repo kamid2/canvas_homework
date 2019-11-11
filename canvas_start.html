@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Drawing Area</title>
+<!-- You can add your style here rather than in an external style sheet. -->
+<style>
+	canvas {
+	    border:5px solid #d3d3d3;
+	    background-color: #f1f1f1;
+		display: block;
+	}
+</style>
+</head>
+<body>
+    <!-- DO NOT MODIFY THIS HTML -->
+    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+	<input type = "color" id = "picker"/>
+	<script>
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		document.querySelector("#myCanvas").width = w * 0.8;
+		document.querySelector("#myCanvas").height = h * 0.8;
+		var canvas = document.getElementById("myCanvas");
+		var ctx = canvas.getContext("2d");
+
+		function getMousePos(canvas, event){
+			var rect = canvas.getBoundingClientRect();
+			var x = event.clientX - rect.left; 
+            var y = event.clientY - rect.top; 
+            return{x,y};
+		}
+
+		function Color(c){
+			if (c.keycode == 66){
+				ctx.fillStyle = "blue";
+			}
+			if (c.keycode == 82){
+				ctx.fillStyle = "red";
+			}
+			if (c.keycode == 71){
+				ctx.fillStyle = "green";
+			}
+			if (c.keycode == 89){
+				ctx.fillStyle = "yellow";
+			}
+			return(ctx.fillStyle);
+		}
+
+		canvas.addEventListener("mousemove", function(event){
+			var mousePos = getMousePos(canvas, event)
+			console.log(mousePos.x + ',' + mousePos.y);
+			ctx.beginPath();
+			ctx.arc(mousePos.x, mousePos.y, 10, 0, 2 * Math.PI);
+			ctx.fillStyle = "red";
+			ctx.fill();
+		});
+
+		canvas.addEventListener("keypress", function(event){
+			newCol = Color(c);
+			ctx.fillStyle == newCol;
+			ctx.fill();
+		})
+	</script>
+</body>
+</html>
