@@ -40,19 +40,20 @@
 			ctx.fill();
 		});
 
-		canvas.addEventListener("keydown", function(c){
+		window.addEventListener("keydown", function(c){
 			if (c.keycode == 66){
-				ctx.fillStyle = "blue";
+				var col = "blue";
 			}
 			if (c.keycode == 82){
-				ctx.fillStyle = "red";
+				var col = "red";
 			}
 			if (c.keycode == 71){
-				ctx.fillStyle = "green";
+				var col = "green";
 			}
 			if (c.keycode == 89){
-				ctx.fillStyle = "yellow";
+				var col = "yellow";
 			}
+			ctx.filstyle = col
 			ctx.fill();
 		})
 	</script>
