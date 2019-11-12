@@ -14,48 +14,74 @@
 </head>
 <body>
     <!-- DO NOT MODIFY THIS HTML -->
-    <canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
+	<canvas id = "myCanvas" width = "350" height = "500"  ></canvas>
 	<input type = "color" id = "picker"/>
 	<script>
-		var w = window.innerWidth;
-		var h = window.innerHeight;
-		document.querySelector("#myCanvas").width = w * 0.8;
-		document.querySelector("#myCanvas").height = h * 0.8;
+		var col = "red";
 		var canvas = document.getElementById("myCanvas");
 		var ctx = canvas.getContext("2d");
+	
+		w = window.innerWidth * .8;
+		h = window.innerHeight * .8;
+		var canIDraw = true;
+		document.querySelector("#myCanvas").width = w;
+		document.querySelector("#myCanvas").height = h;
 
-		function getMousePos(canvas, event){
+		
+		function getMousePos(canvas, e){
 			var rect = canvas.getBoundingClientRect();
-			var x = event.clientX - rect.left; 
-            var y = event.clientY - rect.top; 
+			var x = e.clientX - rect.left; 
+            var y = e.clientY - rect.top; 
             return{x,y};
 		}
 
-		canvas.addEventListener("mousemove", function(event){
-			var mousePos = getMousePos(canvas, event)
-			console.log(mousePos.x + ',' + mousePos.y);
-			ctx.beginPath();
-			ctx.arc(mousePos.x, mousePos.y, 10, 0, 2 * Math.PI);
-			ctx.fillStyle = "red";
-			ctx.fill();
-		});
+		window.addEventListener("keydown", function(e){
+			if (e.keyCode == 66){
+				col = "blue";
+			}
+			else if (e.keyCode == 82){
+				col = "red";
+			}
+			else if (e.keyCode == 71){
+				col = "green";
+			}
+			else if (e.keyCode == 89){
+				col = "yellow";
+			}
+			else if (e.keyCode == 32){
+				ctx.clearRect(0, 0, w, h);
+			}
 
-		window.addEventListener("keydown", function(c){
-			if (c.keycode == 66){
-				var col = "blue";
+			else if (e.keyCode == 38){
+				canIDraw = false;
 			}
-			if (c.keycode == 82){
-				var col = "red";
+
+			else if (e.keyCode == 40){
+				canIDraw = true;
 			}
-			if (c.keycode == 71){
-				var col = "green";
-			}
-			if (c.keycode == 89){
-				var col = "yellow";
-			}
-			ctx.filstyle = col
-			ctx.fill();
 		})
+
+		document.getElementById("picker").addEventListener("change", function(e){
+			var colorPicked = e.currentTarget.value;
+			col = colorPicked;
+		})
+
+		function draw(){
+			if (canIDraw == true){
+				ctx.beginPath();
+				ctx.arc(x, y, 10, 0, 2 * Math.PI);
+				ctx.fillStyle = col;
+				ctx.fill();
+			}			
+		}
+
+		canvas.addEventListener("mousemove", function(e){
+			var mousePos = getMousePos(canvas, e)
+			console.log(mousePos.x + ',' + mousePos.y);
+			x = mousePos.x;
+			y = mousePos.y;
+			draw()
+		});
 	</script>
 </body>
 </html>
